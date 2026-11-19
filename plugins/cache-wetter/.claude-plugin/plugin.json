@@ -1,6 +1,6 @@
 {
   "name": "cache-wetter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Leiste über dem Eingabefeld: Cache-Restzeit, Cache-Hit-Rate, Kontext-Wetter, Compact-Button",
   "types": "./types/index.d.ts",
   "license": "MIT"

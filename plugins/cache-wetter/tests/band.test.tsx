@@ -25,11 +25,11 @@ test('Leiste zeigt Cache, Hit-Rate, Wetter und Kontext', async ($, on) => {
         tokens: 140_000,
         window: 200_000,
         percent: 70,
-        breakdown: { isAutoCompactEnabled: true, autoCompactThreshold: 160_000 },
+        breakdown: { isAutoCompactEnabled: true, autoCompactThreshold: 160_000 } as never,
       },
     },
   }))
-  on('turn.step', async function* (_, e) {
+  on('turn.step', async function* (_: unknown, e: { turnId: string; index: number }) {
     return {
       turnId: e.turnId, index: e.index, answer: 'ok', toolUses: [], stopReason: 'end_turn',
       usage: {

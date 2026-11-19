@@ -146,7 +146,16 @@ export const register: Register = on => {
 
   on('turn.complete', async ($, e, next) => {
     const r = await next(e)
-    if (e.agentId === undefined) await refreshContext($)
+    if (e.agentId === undefined) {
+      // Zweite Quelle für die Laufzeit: die Summe der Antwort
+      const u = e.usage
+      if (u !== undefined) {
+        if ((u.ephemeral_1h_input_tokens ?? 0) > 0) await update($, ttl, () => '1h' as const)
+        else if ((u.ephemeral_5m_input_tokens ?? 0) > 0) await update($, ttl, () => '5m' as const)
+        $.ui.log(`cache-wetter usage: ${JSON.stringify(u)}`, { to: 'debug' })
+      }
+      await refreshContext($)
+    }
     return r
   })
 
@@ -186,7 +195,7 @@ export const register: Register = on => {
     const { Box, Button, Text } = $.ui.resolve(e)
 
     // 1. Cache-Restzeit
-    let cacheText = 'Cache –'
+    let cacheText = call === null ? 'Cache –' : 'Cache ?'
     let bar = ''
     let barColor: 'success' | 'warning' | 'error' = 'success'
     if (call !== null && cacheTtl !== null) {
