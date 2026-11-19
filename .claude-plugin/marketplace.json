@@ -1,0 +1,7 @@
+{
+  "name": "lehrerher-plugins",
+  "owner": { "name": "LehrerHer" },
+  "plugins": [
+    { "name": "cache-wetter", "source": "./plugins/cache-wetter", "description": "Leiste über dem Eingabefeld: Cache-Restzeit, Hit-Rate, Kontext-Wetter, Compact-Button" }
+  ]
+}
